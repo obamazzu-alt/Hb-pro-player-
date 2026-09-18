@@ -1,0 +1,854 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   COMMON STAGE
+===================================================== */
+
+.stage {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100dvh;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #202020 0%,
+            #090909 55%,
+            #000 100%
+        );
+}
+
+.stage.active {
+    display: flex;
+}
+
+
+/* =====================================================
+   COMMON BUTTON
+===================================================== */
+
+.main-btn {
+    position: relative;
+    z-index: 100;
+
+    border: 0;
+    outline: 0;
+
+    padding: 14px 26px;
+
+    min-width: 165px;
+
+    border-radius: 999px;
+
+    background: #fff;
+    color: #080808;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.45);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.main-btn:hover {
+    transform: scale(1.06);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.main-btn:active {
+    transform: scale(0.96);
+}
+
+
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
+
+.music-btn {
+    position: fixed;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 9999;
+
+    border: 0;
+    outline: 0;
+
+    padding: 11px 17px;
+
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.13);
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   COVER CARD
+===================================================== */
+
+.cover-card {
+    position: relative;
+
+    width: min(90vw, 430px);
+    height: min(82dvh, 650px);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: #000;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.8);
+}
+
+
+/* -----------------------------------------------------
+   REAL COVER IMAGE
+----------------------------------------------------- */
+
+.cover-image {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: 1;
+
+    display: block;
+}
+
+
+/* -----------------------------------------------------
+   LEFT + RIGHT OPENING HALVES
+
+   IMPORTANT:
+   These use cover.jpg themselves so the picture
+   is visible BEFORE the card is opened.
+----------------------------------------------------- */
+
+.cover-left,
+.cover-right {
+    position: absolute;
+
+    top: 0;
+
+    width: 50%;
+    height: 100%;
+
+    z-index: 5;
+
+    background-image: url("./cover.jpg");
+    background-repeat: no-repeat;
+    background-size: 200% 100%;
+
+    transition:
+        transform 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+
+/* LEFT SIDE */
+
+.cover-left {
+    left: 0;
+
+    background-position: left center;
+
+    transform-origin: left center;
+}
+
+
+/* RIGHT SIDE */
+
+.cover-right {
+    right: 0;
+
+    background-position: right center;
+
+    transform-origin: right center;
+}
+
+
+/* -----------------------------------------------------
+   OPEN ANIMATION
+----------------------------------------------------- */
+
+.cover-card.opened .cover-left {
+    transform: translateX(-105%);
+}
+
+.cover-card.opened .cover-right {
+    transform: translateX(105%);
+}
+
+
+/* -----------------------------------------------------
+   OPEN CARD BUTTON
+----------------------------------------------------- */
+
+#openBtn {
+    position: absolute;
+
+    left: 50%;
+    bottom: 35px;
+
+    transform: translateX(-50%);
+
+    z-index: 50;
+
+    white-space: nowrap;
+}
+
+#openBtn:hover {
+    transform: translateX(-50%) scale(1.06);
+}
+
+
+/* =====================================================
+   INSIDE CARD
+===================================================== */
+
+.inside-card {
+    position: relative;
+
+    width: min(94vw, 850px);
+    height: min(82dvh, 650px);
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: #000;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.8);
+}
+
+
+/* -----------------------------------------------------
+   INSIDE IMAGE
+----------------------------------------------------- */
+
+.inside-image {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    z-index: 1;
+}
+
+
+/* -----------------------------------------------------
+   DARK OVERLAY
+
+   pointer-events NONE is VERY IMPORTANT.
+   It means Continue button can always be clicked.
+----------------------------------------------------- */
+
+.inside-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.12),
+            rgba(0, 0, 0, 0.78)
+        );
+}
+
+
+/* -----------------------------------------------------
+   BIRTHDAY MESSAGE
+----------------------------------------------------- */
+
+.message {
+    position: absolute;
+
+    left: 50%;
+    bottom: 32px;
+
+    width: 90%;
+    max-width: 620px;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+
+    text-align: center;
+
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.95);
+}
+
+.message h1 {
+    margin-bottom: 7px;
+
+    font-size: clamp(30px, 6vw, 50px);
+
+    line-height: 1.1;
+}
+
+.message h2 {
+    margin-bottom: 9px;
+
+    font-size: clamp(25px, 5vw, 38px);
+
+    line-height: 1.1;
+}
+
+.message p {
+    max-width: 580px;
+
+    margin: 7px auto;
+
+    font-size: clamp(14px, 2.5vw, 18px);
+
+    line-height: 1.45;
+}
+
+.message .sorry {
+    font-weight: 700;
+}
+
+.message .main-btn {
+    margin-top: 15px;
+}
+
+
+/* =====================================================
+   CANDLE VIDEO STAGE
+===================================================== */
+
+.candle-container {
+    width: 92%;
+    max-width: 750px;
+
+    text-align: center;
+}
+
+.candle-container h1 {
+    margin-bottom: 24px;
+
+    font-size: clamp(30px, 7vw, 50px);
+
+    line-height: 1.1;
+}
+
+.candle-video {
+    display: block;
+
+    width: min(90vw, 620px);
+
+    max-width: 100%;
+    max-height: 65dvh;
+
+    margin: 0 auto;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    background: #000;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.75);
+}
+
+.small-text {
+    margin-top: 17px;
+
+    font-size: 17px;
+
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   CAKE STAGE
+===================================================== */
+
+.cake-container {
+    width: 92%;
+    max-width: 750px;
+
+    text-align: center;
+}
+
+.cake-container h1 {
+    margin-bottom: 22px;
+
+    font-size: clamp(30px, 7vw, 50px);
+
+    line-height: 1.1;
+}
+
+.cake-image {
+    display: block;
+
+    width: min(90vw, 650px);
+
+    max-width: 100%;
+    max-height: 62dvh;
+
+    margin: 0 auto;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.75);
+}
+
+.cake-container p {
+    margin-top: 15px;
+
+    font-size: 18px;
+}
+
+.cake-container .main-btn {
+    margin-top: 18px;
+}
+
+
+/* =====================================================
+   GIFT STAGE
+===================================================== */
+
+.gift-container {
+    width: 90%;
+
+    text-align: center;
+}
+
+.gift-container h1 {
+    margin-bottom: 35px;
+
+    font-size: clamp(30px, 7vw, 50px);
+}
+
+
+/* -----------------------------------------------------
+   GIFT BOX
+----------------------------------------------------- */
+
+.gift-box {
+    position: relative;
+
+    width: 190px;
+    height: 170px;
+
+    margin: 0 auto 35px;
+
+    cursor: pointer;
+}
+
+
+/* BOX BODY */
+
+.gift-body {
+    position: absolute;
+
+    left: 10px;
+    bottom: 0;
+
+    width: 170px;
+    height: 125px;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d00000,
+            #710000
+        );
+
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, 0.65);
+}
+
+
+/* BOX LID */
+
+.gift-lid {
+    position: absolute;
+
+    left: 0;
+    top: 25px;
+
+    width: 190px;
+    height: 40px;
+
+    border-radius: 6px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ed0000,
+            #850000
+        );
+
+    z-index: 3;
+
+    transition:
+        transform 0.8s ease;
+}
+
+
+/* VERTICAL RIBBON */
+
+.gift-ribbon-vertical {
+    position: absolute;
+
+    left: 78px;
+    bottom: 0;
+
+    width: 35px;
+    height: 145px;
+
+    background: #f5c542;
+
+    z-index: 4;
+}
+
+
+/* HORIZONTAL RIBBON */
+
+.gift-ribbon-horizontal {
+    position: absolute;
+
+    left: 10px;
+    top: 30px;
+
+    width: 170px;
+    height: 25px;
+
+    background: #f5c542;
+
+    z-index: 5;
+}
+
+
+/* GIFT OPEN */
+
+.gift-box.opened .gift-lid {
+    transform:
+        translateY(-75px)
+        rotate(-7deg);
+}
+
+
+/* =====================================================
+   FINAL STAGE
+===================================================== */
+
+.final-container {
+    width: 90%;
+    max-width: 650px;
+
+    text-align: center;
+}
+
+.spiderman {
+    margin-bottom: 20px;
+
+    font-size: 100px;
+
+    animation:
+        spidermanBounce 1.5s infinite ease-in-out;
+}
+
+.final-container h1 {
+    margin-bottom: 15px;
+
+    font-size: clamp(30px, 7vw, 55px);
+
+    line-height: 1.15;
+}
+
+.final-container p {
+    margin: 8px 0;
+
+    font-size: clamp(16px, 3vw, 20px);
+
+    line-height: 1.6;
+}
+
+.final-message {
+    margin-bottom: 25px !important;
+}
+
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes spidermanBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .stage {
+        padding: 12px;
+    }
+
+
+    /* COVER */
+
+    .cover-card {
+        width: 90vw;
+        height: 78dvh;
+
+        border-radius: 16px;
+    }
+
+    #openBtn {
+        bottom: 28px;
+
+        min-width: 160px;
+
+        padding: 13px 22px;
+
+        font-size: 14px;
+    }
+
+
+    /* MUSIC */
+
+    .music-btn {
+        top: 10px;
+        right: 10px;
+
+        padding: 9px 14px;
+
+        font-size: 12px;
+    }
+
+
+    /* INSIDE */
+
+    .inside-card {
+        width: 94vw;
+        height: 78dvh;
+
+        border-radius: 16px;
+    }
+
+    .message {
+        bottom: 20px;
+
+        width: 91%;
+    }
+
+    .message h1 {
+        font-size: clamp(27px, 8vw, 40px);
+    }
+
+    .message h2 {
+        font-size: clamp(23px, 7vw, 34px);
+    }
+
+    .message p {
+        font-size: 13px;
+
+        line-height: 1.4;
+    }
+
+    .message .main-btn {
+        margin-top: 11px;
+
+        padding: 12px 21px;
+
+        font-size: 13px;
+    }
+
+
+    /* CANDLE */
+
+    .candle-container h1 {
+        margin-bottom: 18px;
+
+        font-size: clamp(28px, 8vw, 40px);
+    }
+
+    .candle-video {
+        width: 92vw;
+
+        max-height: 58dvh;
+
+        border-radius: 14px;
+    }
+
+    .small-text {
+        margin-top: 13px;
+
+        font-size: 14px;
+    }
+
+
+    /* CAKE */
+
+    .cake-container h1 {
+        margin-bottom: 18px;
+
+        font-size: clamp(28px, 8vw, 40px);
+    }
+
+    .cake-image {
+        width: 92vw;
+
+        max-height: 58dvh;
+
+        border-radius: 14px;
+    }
+
+    .cake-container p {
+        margin-top: 12px;
+
+        font-size: 15px;
+    }
+
+
+    /* GIFT */
+
+    .gift-container h1 {
+        margin-bottom: 25px;
+
+        font-size: clamp(28px, 8vw, 40px);
+    }
+
+    .gift-box {
+        transform: scale(0.9);
+
+        margin-bottom: 25px;
+    }
+
+
+    /* FINAL */
+
+    .spiderman {
+        font-size: 80px;
+    }
+
+    .final-container h1 {
+        font-size: clamp(28px, 8vw, 42px);
+    }
+
+    .final-container p {
+        font-size: 16px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-height: 650px) {
+
+    .cover-card {
+        height: 76dvh;
+    }
+
+    .inside-card {
+        height: 76dvh;
+    }
+
+    .message {
+        bottom: 14px;
+    }
+
+    .message p {
+        margin: 4px auto;
+        font-size: 12px;
+    }
+
+    .message .main-btn {
+        margin-top: 7px;
+    }
+
+    .candle-video,
+    .cake-image {
+        max-height: 52dvh;
+    }
+}
