@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Scout Bhai 🕷️</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <!-- BACKGROUND MUSIC -->
+    <audio id="bgMusic" loop>
+        <source src="./birthday.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- MUSIC BUTTON -->
+    <button id="musicBtn" class="music-btn">🔊 Music</button>
+
+    <!-- ================= COVER ================= -->
+    <section id="coverStage" class="stage active">
+
+        <div class="cover-card">
+
+            <div class="cover-left"></div>
+            <div class="cover-right"></div>
+
+            <img src="./cover.jpg" alt="Birthday Cover" class="cover-image">
+
+            <button id="openBtn" class="main-btn">
+                OPEN CARD 🕷️
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= INSIDE CARD ================= -->
+    <section id="insideStage" class="stage">
+
+        <div class="inside-card">
+
+            <img src="./inside.jpg" alt="Inside Birthday Card" class="inside-image">
+
+            <div class="inside-overlay"></div>
+
+            <div class="message">
+
+                <h1>Happy Birthday 🎂</h1>
+
+                <h2>Scout Bhai 🕷️</h2>
+
+                <p class="sorry">
+                    Sorry for being late! ❤️
+                </p>
+
+                <p>
+                    Hope your special day was full of
+                    happiness, fun & good vibes. ✨
+                </p>
+
+                <p>
+                    Wishing you lots of happiness,
+                    success and amazing memories ahead! ❤️
+                </p>
+
+                <button id="continueBtn" class="main-btn">
+                    CONTINUE ➜
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CANDLE VIDEO ================= -->
+    <section id="candleStage" class="stage">
+
+        <div class="candle-container">
+
+            <h1>Make a Wish 🕯️✨</h1>
+
+            <video
+                id="candleVideo"
+                class="candle-video"
+                src="./candle.mp4"
+                muted
+                playsinline
+                preload="auto">
+            </video>
+
+            <p class="small-text">
+                Make your birthday wish... ❤️
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CAKE ================= -->
+    <section id="cakeStage" class="stage">
+
+        <div class="cake-container">
+
+            <h1>Birthday Cake 🎂</h1>
+
+            <img
+                src="./cake.jpg"
+                alt="Birthday Cake"
+                class="cake-image">
+
+            <p>
+                A special cake for a special day. ❤️
+            </p>
+
+            <button id="cakeContinueBtn" class="main-btn">
+                NEXT ➜
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= GIFT ================= -->
+    <section id="giftStage" class="stage">
+
+        <div class="gift-container">
+
+            <h1>Your Gift 🎁</h1>
+
+            <div class="gift-box" id="giftBox">
+
+                <div class="gift-lid"></div>
+                <div class="gift-body"></div>
+                <div class="gift-ribbon-vertical"></div>
+                <div class="gift-ribbon-horizontal"></div>
+
+            </div>
+
+            <button id="giftBtn" class="main-btn">
+                OPEN YOUR GIFT 🎁
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FINAL ================= -->
+    <section id="finalStage" class="stage">
+
+        <div class="final-container">
+
+            <div class="spiderman">🕷️</div>
+
+            <h1>Happy Birthday, Scout! ❤️</h1>
+
+            <p>
+                Hope you have an absolutely amazing year ahead! ✨
+            </p>
+
+            <p class="final-message">
+                Stay happy, stay awesome and keep smiling! 🕷️❤️
+            </p>
+
+            <button id="restartBtn" class="main-btn">
+                PLAY AGAIN 🔄
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script src="./script.js"></script>
+
+</body>
+</html>
